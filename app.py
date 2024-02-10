@@ -43,6 +43,7 @@ if st.checkbox("Predict Price"):
                 r = R/(12*100)
                 emi = pred * r * ((1+r)**t)/((1+r)**t - 1)
                 # emi = pipe[pred * r * ((1+r)**t)/((1+r)**t - 1)] * 1e5
+                emi = round(emi , 2)
                 st.write(f"EMI :  ₹{emi} Per Month" )
     
 
