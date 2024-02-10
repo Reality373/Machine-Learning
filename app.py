@@ -2,6 +2,9 @@ import pandas as pd
 import streamlit as st
 import pickle
 import numpy as np
+import tkinter as tk
+import tkinter.messagebox as tkmb
+
 
 data = pd.read_csv('cleaned_data.csv')
 pipe = pickle.load(open('LinearModel.pkl', 'rb'))
@@ -24,10 +27,31 @@ sqft = st.text_input("Enter total house area in sqft", "")
 bath = st.text_input("Enter number of bathroom(s)", "")
 balcony = st.text_input("Enter number of balcony(ies)", "")
 
+
 # Predict button
-if st.button("Predict Price"):
+if st.checkbox("Predict Price"):
     if location and bhk and sqft and bath and balcony:
         prediction = predict_price(float(sqft), int(bath), int(balcony), location, int(bhk))
         st.write(f"Prediction: ₹{prediction}")
-    else:
-        st.warning("Please fill in all the input fields.")
+
+        pred = prediction
+        st.title("Calculate EMI on Above Amount")
+        R = (st.number_input("Enter Your Interest Rate"))
+        t = (st.number_input("Enter Your Tennure in Months"))
+        if st.button("Calculate EMI"):
+            if R and t:
+                r = R/(12*100)
+                emi = pred * r * ((1+r)**t)/((1+r)**t - 1)
+                # emi = pipe[pred * r * ((1+r)**t)/((1+r)**t - 1)] * 1e5
+                st.write(f"EMI :  ₹{emi} Per Month" )
+    
+
+else:
+    st.warning("Please fill in all the input fields.")
+
+
+
+
+
+
+
