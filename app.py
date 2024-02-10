@@ -2,8 +2,8 @@ import pandas as pd
 import streamlit as st
 import pickle
 import numpy as np
-import tkinter as tk
-import tkinter.messagebox as tkmb
+# import tkinter as tk
+# import tkinter.messagebox as tkmb
 
 
 data = pd.read_csv('cleaned_data.csv')
